@@ -4,12 +4,6 @@ A role-based full-stack system built with **React.js** and **Firebase**, designe
 
 ---
 
-## 🚀 Live Demo
-
-> [🔗 Click here to view the demo](#) *(optional link)*
-
----
-
 ## 📌 Features
 
 - 🔐 Role-based access: Admin, Contractor, Broker, Investor, Sourcing Agent, Client

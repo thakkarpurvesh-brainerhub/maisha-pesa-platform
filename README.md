@@ -47,7 +47,7 @@ src/
    ```bash
    git clone https://github.com/your-username/maisha-pesa.git
    cd maisha-pesa
-````
+   ````
 
 2. **Install dependencies**
 

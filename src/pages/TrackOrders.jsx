@@ -7,7 +7,7 @@ import { Card, Typography, Divider, Container } from "@mui/material";
 export default function TrackOrders() {
   const { currentUser } = useAuth();
   const [orders, setOrders] = useState([]);
-  console.log(orders)
+
   useEffect(() => {
     if (!currentUser) return;
 

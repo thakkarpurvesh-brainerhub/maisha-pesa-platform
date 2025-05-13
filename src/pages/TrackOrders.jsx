@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
-import { Box, Card, Typography, Divider } from "@mui/material";
+import { Card, Typography, Divider, Container } from "@mui/material";
 
 export default function TrackOrders() {
   const { currentUser } = useAuth();
   const [orders, setOrders] = useState([]);
-
+  console.log(orders)
   useEffect(() => {
     if (!currentUser) return;
 
@@ -28,7 +28,7 @@ export default function TrackOrders() {
   }, [currentUser]);
 
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h6" gutterBottom>Your Orders</Typography>
       {orders.length === 0 ? (
         <Typography>No allocated orders to track at the moment.</Typography>
@@ -43,11 +43,14 @@ export default function TrackOrders() {
               <Typography key={index}>
                 • {item.name} — {item.quantity} pcs
                 {item.description && ` (${item.description})`}
+                {item.allocatedTo && (
+                  <> — <strong>Allocated To:</strong> {item.allocatedTo}</>
+                )}
               </Typography>
             ))}
           </Card>
         ))
       )}
-    </Box>
+    </Container>
   );
 }

@@ -14,7 +14,8 @@ import {
   Card,
   CardContent,
   TextField,
-  Button
+  Button,
+  Container
 } from "@mui/material";
 import { toast } from "react-toastify";
 
@@ -58,7 +59,7 @@ export default function AllocateItems() {
   };
 
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h5" gutterBottom>Allocate Items</Typography>
 
       {orders.length === 0 ? (
@@ -91,6 +92,6 @@ export default function AllocateItems() {
           </Card>
         ))
       )}
-    </Box>
+    </Container>
   );
 }

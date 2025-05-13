@@ -7,6 +7,7 @@ import {
   CardContent,
   Stack,
   Divider,
+  Container,
 } from "@mui/material";
 import {
   collection,
@@ -49,7 +50,7 @@ const ReviewOrders = () => {
   };
 
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h5" gutterBottom>
         Review Pending Orders
       </Typography>
@@ -98,7 +99,7 @@ const ReviewOrders = () => {
           ))}
         </Stack>
       )}
-    </Box>
+    </Container>
   );
 };
 

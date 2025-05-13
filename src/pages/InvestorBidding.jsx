@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Card, CardContent, Typography, Button, TextField } from "@mui/material";
+import { Box, Card, CardContent, Typography, Button, TextField, Container } from "@mui/material";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../contexts/AuthContext";
@@ -41,7 +41,7 @@ const InvestorBidding = () => {
   };
 
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h6" gutterBottom>Approved Orders - Place Your Bid</Typography>
       {orders.map(order => (
         <Card key={order.id} sx={{ my: 2 }}>
@@ -50,17 +50,25 @@ const InvestorBidding = () => {
             {order.items.map((item, idx) => (
               <Typography key={idx}>{item.name} x {item.quantity}</Typography>
             ))}
-            <Box sx={{ mt: 2 }}>
+            <Box sx={{ mt: 2, display: "flex", alignItems: "center" }}>
               <TextField
                 type="number"
                 label="Bid Amount"
                 value={bids[order.id] || ""}
                 onChange={e => handleBidChange(order.id, e.target.value)}
-                sx={{ mr: 2 }}
+                size="small"
+                sx={{
+                  mr: 2,
+                  '& input::-webkit-outer-spin-button': { display: 'none' },
+                  '& input::-webkit-inner-spin-button': { display: 'none' },
+                  '& input[type=number]': { MozAppearance: 'textfield' }
+                }}
               />
               <Button
                 variant="contained"
+                size="small"
                 onClick={() => submitBid(order.id)}
+                sx={{ height: '40px' }} // Optional: match height explicitly
               >
                 Submit Bid
               </Button>
@@ -68,7 +76,7 @@ const InvestorBidding = () => {
           </CardContent>
         </Card>
       ))}
-    </Box>
+    </Container>
   );
 };
 

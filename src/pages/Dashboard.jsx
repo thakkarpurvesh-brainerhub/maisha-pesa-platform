@@ -6,7 +6,7 @@ import ChatSelector from "../components/ChatSelector";
 import ROLES from "../utils/constants";
 
 export default function Dashboard() {
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
 
   if (!currentUser) return <Typography>Loading...</Typography>;

@@ -8,7 +8,7 @@ import {
   getDocs,
   updateDoc
 } from "firebase/firestore";
-import { Box, Typography, Button, Card, CardContent } from "@mui/material";
+import { Box, Typography, Button, Card, CardContent, Container } from "@mui/material";
 import { toast } from "react-toastify";
 
 export default function SelectWinningBid() {
@@ -46,9 +46,8 @@ export default function SelectWinningBid() {
   if (!order) return <Typography>Loading order...</Typography>;
 
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h5" gutterBottom>Select Winning Bid</Typography>
-
       {bids.length === 0 ? (
         <Typography>No bids for this order yet.</Typography>
       ) : (
@@ -68,6 +67,6 @@ export default function SelectWinningBid() {
           </Card>
         ))
       )}
-    </Box>
+    </Container>
   );
 }

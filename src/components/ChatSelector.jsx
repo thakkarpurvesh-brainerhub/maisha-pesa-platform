@@ -12,10 +12,9 @@ const ChatSelector = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   useEffect(() => {
-    console.log("Current user:", currentUser);
     const fetchUsers = async () => {
       const snapshot = await getDocs(collection(db, "users"));
-      console.log("All users:", snapshot);
+
       const allUsers = snapshot.docs.map(doc => ({ uid: doc.id, ...doc.data() }));
       
         let oppositeRole = null;

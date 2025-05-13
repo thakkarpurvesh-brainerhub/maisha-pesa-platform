@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Typography, Button, Card, CardContent } from "@mui/material";
+import { Box, Typography, Button, Card, CardContent, Container } from "@mui/material";
 import { db } from "../firebase";
 import { collection, query, where, getDocs, updateDoc, doc } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext";
@@ -39,7 +39,7 @@ export default function FundOrders() {
   };
 
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h5" gutterBottom>Funding Orders</Typography>
 
       {ordersToFund.length === 0 ? (
@@ -61,6 +61,6 @@ export default function FundOrders() {
           </Card>
         ))
       )}
-    </Box>
+    </Container>
   );
 }

@@ -6,6 +6,8 @@ import {
   Button,
   Typography,
   Box,
+  Paper,
+  Stack,
 } from "@mui/material";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -20,6 +22,7 @@ export default function SignupPage() {
     password: "",
     role: ROLES.CONTRACTOR,
   });
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -35,16 +38,15 @@ export default function SignupPage() {
         form.password
       );
       const user = userCredential.user;
-  
-      // Save additional user info like role & kycVerified in Firestore
+
       await setDoc(doc(db, "users", user.uid), {
         email: form.email,
         role: form.role,
-        kycVerified: false, // Admin must approve
+        kycVerified: false,
       });
 
+      toast.success("Account created!");
       navigate("/login");
-      console.log("User created:", user.uid);
     } catch (error) {
       toast.error(error.message);
       console.error("Signup error:", error.message);
@@ -53,49 +55,68 @@ export default function SignupPage() {
 
   return (
     <Container maxWidth="sm">
-      <Box mt={5}>
-        <Typography variant="h4" gutterBottom>
-          Sign Up
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <Box display="flex" flexDirection="column" gap={2}>
-            <TextField
-              label="Email"
-              name="email"
-              type="email"
-              fullWidth
-              required
-              value={form.email}
-              onChange={handleChange}
-            />
-            <TextField
-              label="Password"
-              name="password"
-              type="password"
-              fullWidth
-              required
-              value={form.password}
-              onChange={handleChange}
-            />
-            <TextField
-              select
-              label="Role"
-              name="role"
-              value={form.role}
-              onChange={handleChange}
-              fullWidth
-            >
-              {Object.entries(ROLES).map(([key, label]) => (
-                <MenuItem key={key} value={label}>
-                  {label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <Button variant="contained" color="primary" type="submit">
-              Create Account
-            </Button>
+      <Box mt={8} display="flex" justifyContent="center">
+        <Paper
+          elevation={3}
+          sx={{ p: 4, borderRadius: 3, width: "100%", maxWidth: 480 }}
+        >
+          <Typography variant="h4" fontWeight={600} gutterBottom>
+            Create an Account
+          </Typography>
+          <Typography variant="body2" color="text.secondary" mb={3}>
+            Fill in your details to get started.
+          </Typography>
+
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={2}>
+              <TextField
+                label="Email Address"
+                name="email"
+                type="email"
+                fullWidth
+                required
+                value={form.email}
+                onChange={handleChange}
+              />
+              <TextField
+                label="Password"
+                name="password"
+                type="password"
+                fullWidth
+                required
+                value={form.password}
+                onChange={handleChange}
+              />
+              <TextField
+                select
+                label="Select Role"
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                fullWidth
+              >
+                {Object.entries(ROLES).map(([key, label]) => (
+                  <MenuItem key={key} value={label}>
+                    {label}
+                  </MenuItem>
+                ))}
+              </TextField>
+
+              <Button variant="contained" type="submit" size="large">
+                Sign Up
+              </Button>
+            </Stack>
+          </form>
+
+          <Box mt={3}>
+            <Typography variant="body2">
+              Already have an account?{" "}
+              <Button variant="text" onClick={() => navigate("/login")}>
+                Log in
+              </Button>
+            </Typography>
           </Box>
-        </form>
+        </Paper>
       </Box>
     </Container>
   );

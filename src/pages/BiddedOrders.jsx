@@ -6,7 +6,8 @@ import {
   Card,
   CardContent,
   Button,
-  CircularProgress
+  CircularProgress,
+  Container
 } from "@mui/material";
 import { collection, getDocs, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -50,7 +51,7 @@ export default function BiddedOrders() {
   if (loading) return <CircularProgress />;
 
   return (
-    <Box>
+    <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h5" gutterBottom>
         Orders Ready for Bid Selection
       </Typography>
@@ -74,6 +75,6 @@ export default function BiddedOrders() {
           </Card>
         ))
       )}
-    </Box>
+    </Container>
   );
 }

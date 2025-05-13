@@ -17,12 +17,11 @@ const ChatRoom = ({ otherUserId }) => {
   }, [currentUser, otherUserId]);
 
   const messagesRef = collection(db, "chats", chatId, "messages");
-  console.log("messagesRef", messagesRef);
+
   useEffect(() => {
     const q = query(messagesRef, orderBy("timestamp", "asc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const msgs = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      console.log("Messages:", msgs);
       setMessages(msgs);
     },
     (error) => {
@@ -33,14 +32,12 @@ const ChatRoom = ({ otherUserId }) => {
 
   async function ensureChatExists() {
     const chatRef = doc(db, "chats", chatId);
-    console.log("chatRef", chatRef);
     const chatSnap = await getDoc(chatRef);
     if (!chatSnap.exists()) {
       await setDoc(chatRef, {
         participants: [currentUser.uid, otherUserId],
         createdAt: Timestamp.now(),
       });
-      console.log("Chat created.");
     }
   }
 
@@ -58,7 +55,7 @@ const ChatRoom = ({ otherUserId }) => {
 
     setInput("");
   };
-console.log('messages', messages)
+
   return (
     <Box>
       <Typography variant="h6">Chat</Typography>
